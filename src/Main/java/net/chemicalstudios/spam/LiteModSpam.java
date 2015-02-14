@@ -1,4 +1,4 @@
-package net.chemicalstudios.spam;
+package Main.java.net.chemicalstudios.spam;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,9 +18,6 @@ import org.lwjgl.input.Keyboard;
 import com.mumfrey.liteloader.ChatFilter;
 import com.mumfrey.liteloader.Tickable;
 import com.mumfrey.liteloader.core.LiteLoader;
-import com.mumfrey.liteloader.gui.GuiCheckbox;
-import com.mumfrey.liteloader.gui.GuiHoverLabel;
-import com.mumfrey.liteloader.util.ModUtilities;
 
 public class LiteModSpam implements ChatFilter, Tickable {
 
@@ -30,10 +27,6 @@ public class LiteModSpam implements ChatFilter, Tickable {
 
 	private boolean sending = false;
 
-	
-	GuiHoverLabel test;
-
-	
 	
 	String[] namesArray;
 	
@@ -93,7 +86,7 @@ public class LiteModSpam implements ChatFilter, Tickable {
 		preUsername = words[0];
 		String username = new String();
 		for(int i = 0; i < preUsername.length(); i++) {
-			if(!(preUsername.charAt(i) == '§' || ((i > 0) && preUsername.charAt(i-1) == '§')) && !((preUsername.charAt(i) == '<') || preUsername.charAt(i) == '>')&& !((preUsername.charAt(i) == '[') || preUsername.charAt(i) == ']')) {
+			if(!(preUsername.charAt(i) == 'ï¿½' || ((i > 0) && preUsername.charAt(i-1) == 'ï¿½')) && !((preUsername.charAt(i) == '<') || preUsername.charAt(i) == '>')&& !((preUsername.charAt(i) == '[') || preUsername.charAt(i) == ']')) {
 				username += preUsername.charAt(i);
 			}
 		}

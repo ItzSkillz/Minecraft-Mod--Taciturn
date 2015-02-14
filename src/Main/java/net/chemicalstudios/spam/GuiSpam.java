@@ -1,4 +1,4 @@
-package net.chemicalstudios.spam;
+package Main.java.net.chemicalstudios.spam;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,15 +7,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import net.minecraft.client.gui.*;
 import org.lwjgl.input.Keyboard;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiLabel;
-import net.minecraft.client.gui.GuiMainMenu;
-import net.minecraft.client.gui.GuiOptions;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiShareToLan;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -101,7 +95,8 @@ public class GuiSpam extends GuiScreen {
 
 	public void drawScreen(int par1, int par2, float par3) {
 		this.drawDefaultBackground();
-		this.drawString(this.fontRendererObj, "Mute Players Menu", this.width / 2 - (this.mc.fontRenderer.getStringWidth("Mute Players Menu") / 2), 100, 16777215);
+        FontRenderer fr;
+		this.drawString(this.fontRendererObj, "Mute Players Menu", this.width / 2 - (mc.fontRendererObj.getStringWidth("Mute Players Menu") / 2), 100, 16777215);
 
 		this._Player.drawTextBox();
 

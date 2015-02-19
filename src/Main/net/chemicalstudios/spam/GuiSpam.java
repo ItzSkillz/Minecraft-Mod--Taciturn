@@ -1,19 +1,12 @@
-package Main.java.net.chemicalstudios.spam;
+package main.net.chemicalstudios.spam;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import net.minecraft.client.gui.*;
-import org.lwjgl.input.Keyboard;
-
-import net.minecraft.client.gui.achievement.GuiAchievements;
-import net.minecraft.client.gui.achievement.GuiStats;
-import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
+
+import java.io.*;
 
 public class GuiSpam extends GuiScreen {
 
@@ -53,6 +46,7 @@ public class GuiSpam extends GuiScreen {
 		this.buttonList.add(new GuiButton(1, this.width / 2 - 200, y, 98, 20, I18n.format("Unmute", new Object[0])));
 		this.buttonList.add(new GuiButton(2, this.width / 2 + 100, y, 98, 20, I18n.format("Mute", new Object[0])));
 
+        //TODO: look into a auto complete for names entered here.
 		_Player = new GuiTextField(this.fontRendererObj, this.width / 2 - 78, y, 150, 20);
 		_Player.setFocused(true);
 		_Player.setText("");
@@ -76,6 +70,7 @@ public class GuiSpam extends GuiScreen {
 			break;
 		case 2:
 			mutePlayer(_Player.getText());
+            //TODO: only add a player if they aren't already muted
 		}
 	}
 

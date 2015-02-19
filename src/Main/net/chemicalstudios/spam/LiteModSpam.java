@@ -1,26 +1,21 @@
-package Main.java.net.chemicalstudios.spam;
+package main.net.chemicalstudios.spam;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.regex.Pattern;
-
+import com.mumfrey.liteloader.ChatFilter;
+import com.mumfrey.liteloader.Tickable;
+import com.mumfrey.liteloader.core.LiteLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.network.play.server.S02PacketChat;
 import net.minecraft.util.IChatComponent;
-
 import org.lwjgl.input.Keyboard;
 
-import com.mumfrey.liteloader.ChatFilter;
-import com.mumfrey.liteloader.Tickable;
-import com.mumfrey.liteloader.core.LiteLoader;
+import java.io.File;
+import java.io.IOException;
 
 public class LiteModSpam implements ChatFilter, Tickable {
-
+    //TODO: add ablility to use commands to manage everthing
+    //TODO: move to gradle instead of ant
 	String prevMessage;
 
 	CommandHandler handler;
@@ -40,7 +35,7 @@ public class LiteModSpam implements ChatFilter, Tickable {
 
 	@Override
 	public String getVersion() {
-		return "1.0";
+		return "1.0.3";
 	}
 
 	@Override
@@ -49,10 +44,10 @@ public class LiteModSpam implements ChatFilter, Tickable {
 		LiteLoader.getInput().registerKeyBinding(mKey);
 		
 		prevMessage = new String();
-		
+
+        //TODO: relocate this file
 		// Create folder
 		String pathToFolder = "../mod_data_ChemicalStudios";
-		
 		File folder = new File(pathToFolder);
 		folder.mkdirs();
 		// Create text file
@@ -73,7 +68,8 @@ public class LiteModSpam implements ChatFilter, Tickable {
 	@Override
 	public boolean onChat(S02PacketChat chatPacket, IChatComponent chat,
 			String message) {
-			
+
+        //TODO: add option/command to disable this, cause i don't really like it the way it is right now
 		/* This is here to block repeating messages */
 		if (prevMessage.equals(message)) {
 			return false;
@@ -86,7 +82,7 @@ public class LiteModSpam implements ChatFilter, Tickable {
 		preUsername = words[0];
 		String username = new String();
 		for(int i = 0; i < preUsername.length(); i++) {
-			if(!(preUsername.charAt(i) == '�' || ((i > 0) && preUsername.charAt(i-1) == '�')) && !((preUsername.charAt(i) == '<') || preUsername.charAt(i) == '>')&& !((preUsername.charAt(i) == '[') || preUsername.charAt(i) == ']')) {
+			if(!(preUsername.charAt(i) == '\u00bf' || ((i > 0) && preUsername.charAt(i-1) == '\u00bd')) && !((preUsername.charAt(i) == '<') || preUsername.charAt(i) == '>')&& !((preUsername.charAt(i) == '[') || preUsername.charAt(i) == ']')) {
 				username += preUsername.charAt(i);
 			}
 		}

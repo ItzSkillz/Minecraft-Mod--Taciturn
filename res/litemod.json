@@ -1,0 +1,7 @@
+{
+  "name": "${ant.project.name}",
+  "mcversion": "${litemodversion}",
+  "revision": "${build.number}",
+  "author": "${author}",
+  "description": "allows the user to mute any other player in the game"
+}

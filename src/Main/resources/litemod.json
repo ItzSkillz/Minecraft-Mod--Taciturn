@@ -3,6 +3,6 @@
   "mcversion": "${mcversion}",
   "revision": "${revision}",
   "version": "${version}",
-  "author": "FallingDutchman",
+  "author": "ChemicalStudios, 1.7.10 update by FallingDutchman",
   "description": "allows the user to mute any other player in the game"
 }

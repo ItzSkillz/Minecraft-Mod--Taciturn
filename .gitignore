@@ -1,7 +1,10 @@
+.gradle
 gradle
 gradle.properties
 gradlew
 gradlew.bat
 
+Taciturn.iml
+.idea
 
 build

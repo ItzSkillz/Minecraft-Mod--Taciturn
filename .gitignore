@@ -4,8 +4,7 @@ gradle.properties
 gradlew
 gradlew.bat
 
-buildnumber.txt
-
 Taciturn.iml
+.idea
 
 build

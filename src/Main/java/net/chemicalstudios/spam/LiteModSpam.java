@@ -77,12 +77,12 @@ public class LiteModSpam implements ChatFilter, Tickable {
 		
 		/* This is here to block users on the blocklist */
 		String preUsername = new String();
-		
+
 		String[] words =  message.split(" ");
 		preUsername = words[0];
 		String username = new String();
 		for(int i = 0; i < preUsername.length(); i++) {
-			if(!(preUsername.charAt(i) == '\u00bf' || ((i > 0) && preUsername.charAt(i-1) == '\u00bd')) && !((preUsername.charAt(i) == '<') || preUsername.charAt(i) == '>')&& !((preUsername.charAt(i) == '[') || preUsername.charAt(i) == ']')) {
+			if(!(preUsername.charAt(i) == '\u00A7' || ((i > 0) && preUsername.charAt(i-1) == '\u00A7')) && !((preUsername.charAt(i) == '<') || preUsername.charAt(i) == '>')&& !((preUsername.charAt(i) == '[') || preUsername.charAt(i) == ']') && !(preUsername.charAt(i) == ':')) {
 				username += preUsername.charAt(i);
 			}
 		}

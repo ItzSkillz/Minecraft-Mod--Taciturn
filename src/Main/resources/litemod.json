@@ -1,0 +1,8 @@
+{
+  "name": "spam protection",
+  "mcversion": "${mcversion}",
+  "revision": "${revision}",
+  "version": "${version}",
+  "author": "FallingDutchman",
+  "description": "allows the user to mute any other player in the game"
+}

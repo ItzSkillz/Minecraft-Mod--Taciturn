@@ -5,26 +5,22 @@ import com.mumfrey.liteloader.Tickable;
 import com.mumfrey.liteloader.core.LiteLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.command.CommandHandler;
 import net.minecraft.network.play.server.S02PacketChat;
 import net.minecraft.util.IChatComponent;
 import org.lwjgl.input.Keyboard;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class LiteModSpam implements ChatFilter, Tickable {
+public class LiteModSpam implements ChatFilter, Tickable
+{
     //TODO: add ablility to use commands to manage everthing
-    //TODO: move to gradle instead of ant
 	String prevMessage;
-
-	CommandHandler handler;
-
-	private boolean sending = false;
-
-	
-	String[] namesArray;
-	
+    Minecraft mc;
+    String Path;
+	File muteList;
 	
 	KeyBinding mKey = new KeyBinding("key.guispam.toggle", Keyboard.KEY_M, "key.categories.litemods");
 	
@@ -38,50 +34,74 @@ public class LiteModSpam implements ChatFilter, Tickable {
 		return "1.0.3";
 	}
 
-	@Override
-	public void init(File configPath) {
-		
+    @Override
+    public void init(File configPath)
+    {
+        GuiSpam Spamscreen = new GuiSpam(this);
 		LiteLoader.getInput().registerKeyBinding(mKey);
 		
 		prevMessage = new String();
 
-        //TODO: relocate this file
-		// Create folder
-		String pathToFolder = "../mod_data_ChemicalStudios";
-		File folder = new File(pathToFolder);
-		folder.mkdirs();
+        Path = configPath.getPath() + "//MuteList.txt";
+        File muteList = new File(Path);
+        try
+            {
+                muteList.createNewFile();
+            }catch (Exception e){e.printStackTrace();}
+        Spamscreen.initList();
+//        final File ModFolder = new File(mc.mcDataDir.getPath() +"mods/Taciturn");
+//        if (!ModFolder.exists())
+//        {
+//            ModFolder.getParentFile().mkdirs();
+//        }
 		// Create text file
-		String pathToTxt = "/muteList.txt";
-		File muteTxt = new File(pathToFolder + pathToTxt);
-		try {
-			muteTxt.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		//File muteTxt = new File(configPath + FileName);
+
+
 	}
 
 	@Override
-	public void upgradeSettings(String version, File configPath,
-			File oldConfigPath) {
+	public void upgradeSettings(String version, File configPath,File oldConfigPath) {
 	}
 
 	@Override
-	public boolean onChat(S02PacketChat chatPacket, IChatComponent chat,
-			String message) {
+	public boolean onChat(S02PacketChat chatPacket, IChatComponent chat,String message)
+    {
 
         //TODO: add option/command to disable this, cause i don't really like it the way it is right now
 		/* This is here to block repeating messages */
-		if (prevMessage.equals(message)) {
-			return false;
-		}
+        if (prevMessage.equals(message))
+        {
+            return false;
+        }
 		
 		/* This is here to block users on the blocklist */
-		String preUsername = new String();
+        String preUsername = new String();
 
-		String[] words =  message.split(" ");
-		preUsername = words[0];
-		String username = new String();
-		for(int i = 0; i < preUsername.length(); i++) {
+        String[] words = message.split(" ");
+        preUsername = words[0];
+        String username = new String();
+        GuiSpam gs = new GuiSpam(this);
+        if (!gs.mutedPlayers.isEmpty())
+        {
+            for (int i = 0; i < gs.mutedPlayers.size(); i++)
+            {
+                Pattern p = Pattern.compile(gs.getMutedPlayers().get(i));
+                Matcher m = p.matcher(preUsername.toLowerCase());
+                System.out.println("pattern is " + gs.mutedPlayers.get(i));
+                System.out.println("Matcher is " + preUsername.toLowerCase());
+                if (m.find())
+                {
+                    System.out.println("Filter");
+                    return false;
+                }
+            }
+        }
+        else{
+            System.out.println("nobody muted");
+        }
+
+		/*for(int i = 0; i < preUsername.length(); i++) {
 			if(!(preUsername.charAt(i) == '\u00A7' || ((i > 0) && preUsername.charAt(i-1) == '\u00A7')) && !((preUsername.charAt(i) == '<') || preUsername.charAt(i) == '>')&& !((preUsername.charAt(i) == '[') || preUsername.charAt(i) == ']') && !(preUsername.charAt(i) == ':')) {
 				username += preUsername.charAt(i);
 			}
@@ -100,10 +120,8 @@ public class LiteModSpam implements ChatFilter, Tickable {
 		}
 		prevMessage = message;
 		return true;
-	}
-
-	public void sendMessageToPlayer(String message) {
-		sending = true;
+		*/
+        return true;
 	}
 
 	@Override
@@ -113,10 +131,8 @@ public class LiteModSpam implements ChatFilter, Tickable {
 			minecraft.displayGuiScreen(new GuiSpam(this));
 		}
 	}
-	
-	public void sendNames(String names) {
-		if(names != null) {
-			namesArray = names.split(" ");
-		}
-	}
+    public File getMuteList()
+    {
+        return muteList = new File(Path);
+    }
 }
